@@ -1,11 +1,11 @@
 package com.aula.repositorios;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-@Table(name = "persona")
-@Inheritance(strategy = InheritanceType.JOINED)
-public class Persona {
+@Inheritance(strategy=InheritanceType.JOINED)
+public class Persona implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,57 +1,33 @@
 package com.aula.repositorios;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "alumnos")
-@PrimaryKeyJoinColumn(name="id_persona")
-//@PrimaryKeyJoinColumn(name="id_curso")
-public class Alumno extends Persona{
+@PrimaryKeyJoinColumn(name="personaId")
+public class Alumno extends Persona implements Serializable{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_alumno", unique = true, nullable= false)
-    private Integer alumnoId;
-
-    @ManyToOne
-    //@JoinColumn(name = "id_persona")
-    private Persona personaId;
-
-   /* @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_curso")
-    private Integer cursoId;
-*/
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "alumnos"})
+    private Curso curso;
+
     public Alumno(){
     }
 
-   /* public Alumno(String nombre, String apellido, Integer edad, Integer personaId,  Integer dni){
+   public Alumno(String nombre, String apellido, Integer edad,  Integer dni, Curso curso){
         super(nombre, apellido, edad, dni);
-
-
-    }*/
-
-
-    public Integer getAlumnoId() {
-        return alumnoId;
+        this.curso = curso;
     }
 
-    public void setAlumnoId(Integer alumnoId) {
-        this.alumnoId = alumnoId;
+    public Curso getCurso() {
+        return curso;
     }
 
-    /*public Integer getPersonaId() {
-        return personaId;
+    public void setCurso(Curso curso) {
+        this.curso = curso;
     }
-
-    public void setPersonaId(Integer personaId) {
-        this.personaId = personaId;
-    }*/
-
-   /* public Integer getCursoId() {
-        return cursoId;
-    }
-
-    public void setCursoId(Integer cursoId) {
-        this.cursoId = cursoId;
-    }*/
 }
